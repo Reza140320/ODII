@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Untuk Odii</title>
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body, html {
       font-family: 'Comic Neue', cursive;
       width: 100%;
-      height: 100%;
-      overflow: hidden;
+      min-height: 100%;
+      overflow-x: hidden;
+      background-color: #ffe0e9;
     }
     .page {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
-      height: 100%;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       transition: opacity 1s ease;
       text-align: center;
+      padding: 20px;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
     #page1 { background: linear-gradient(to top right, #ffd1dc, #ffe0e9); z-index: 3; }
     #page2, #page2q2, #page2q3, #page2q4, #page3, #page4 {
@@ -37,11 +35,11 @@
       opacity: 0;
       pointer-events: none;
     }
-    .open-btn, .next-btn, .choice {
+    .open-btn, .next-btn, .choice, .yes, .no {
       background: #ff4d6d;
       color: white;
       border: none;
-      padding: 15px 30px;
+      padding: 6px 16px;
       font-size: 1.2em;
       border-radius: 10px;
       cursor: pointer;
@@ -49,12 +47,10 @@
       margin: 10px;
       font-family: 'Comic Neue', cursive;
     }
-    .choice:hover, .open-btn:hover, .next-btn:hover {
+    .yes { background-color: #4CAF50; font-size: 1.5em; border-radius: 15px; }
+    .no { background-color: #f44336; font-size: 1.5em; border-radius: 15px; }
+    .choice:hover, .open-btn:hover, .next-btn:hover, .yes:hover, .no:hover {
       transform: scale(1.05);
-    }
-    .question {
-      margin-bottom: 20px;
-      font-size: 1.4em;
     }
     .photo {
       width: 150px;
@@ -65,39 +61,6 @@
       border: 5px solid white;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
-    .love {
-      font-size: 0;
-    }
-    .buttons { margin-top: 20px; }
-
-    button.yes {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 30px;
-      font-size: 1.5em;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      cursor: pointer;
-      font-family: 'Comic Neue', cursive;
-    }
-
-    button.no {
-      background-color: #f44336;
-      color: white;
-      padding: 10px 30px;
-      font-size: 1.5em;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      cursor: pointer;
-      font-family: 'Comic Neue', cursive;
-    }
-
-    button.no:hover {
-      position: absolute;
-      top: calc(50% - 30px);
-      left: calc(10% + 60% * Math.random());
-    }
-
     .footer {
       position: absolute;
       bottom: 20px;
@@ -121,131 +84,162 @@
       animation: floatUp 7s linear infinite;
     }
     @keyframes floatUp {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-120vh) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+    }
+    .typed-text {
+      font-size: 1em;
+      max-width: 600px;
+      text-align: center;
+      margin-bottom: 15px;
     }
   </style>
 </head>
 <body>
 
-  <audio id="bg-music" autoplay loop muted>
-    <source src="justin.mp3" type="audio/mpeg">
-    Browser tidak mendukung audio.
-  </audio>
+<audio id="bg-music" autoplay loop muted>
+  <source src="justin.mp3" type="audio/mpeg">
+  Browser tidak mendukung audio.
+</audio>
 
-  <div id="page1" class="page">
-    <h2>Haloo Odiiiii 👋</h2>
-    <button class="open-btn" onclick="showPage('page2')">Buka Pesan</button>
+<div id="page1" class="page">
+  <h2>Haloo Odiiiii 👋</h2>
+  <button class="open-btn" onclick="showPage('page2')">Buka Pesan</button>
+</div>
+
+<div id="page2" class="page">
+  <div class="question">1. Hummm, mau ngomong apa tadi yaa</div>
+  <button class="choice" onclick="showPage('page2q2')">Aneh ke tom</button>
+  <button class="choice" onclick="showPage('page2q2')">Ngomong apa emang tom</button>
+</div>
+
+<div id="page2q2" class="page">
+  <div class="question">2. Aduhh, lupa lagii</div>
+  <button class="choice" onclick="showPage('page2q3')">Tommm!!😠😠</button>
+  <button class="choice" onclick="showPage('page2q3')">Ngomong apa emang tomm "Dengan nada sabar"😊😊</button>
+</div>
+
+<div id="page2q3" class="page">
+  <div class="question">3. Oiyaaa baru ingat aku diii</div>
+  <button class="choice" onclick="showPage('page2q4')">Iyaa ngomong terus tom</button>
+  <button class="choice" onclick="showPage('page2q4')">ya tom ngomong aju</button>
+</div>
+
+<div id="page2q4" class="page">
+  <div class="question">4. Gimana yaa ngomonginnya...</div>
+  <button class="choice" onclick="showPage('page3')">Langsung aja Tom, Odi siap kok</button>
+  <button class="choice" onclick="showPage('page3')">Jangan bikin penasaran Tom 😳</button>
+</div>
+
+<div id="page3" class="page">
+  <div class="doll-animation"></div>
+  <img src="odii.jpg" alt="Foto Kamu" class="photo">
+  <div class="typed-text" id="text1"></div>
+  <div class="typed-text" id="text2"></div>
+  <div class="typed-text" id="text3"></div>
+  <div class="typed-text" id="text4"></div>
+  <div class="typed-text" id="text5"></div>
+  <div class="typed-text" id="text6"></div>
+  <div class="typed-text" id="text7"></div>
+  <p id="final-text" style="font-weight: bold; font-size: 1.4em; margin-top: 20px; display: none;">I love you so 💖</p>
+  <div class="buttons" id="yesno-buttons" style="display: none;">
+    <button class="yes" onclick="showPage('page4')">Yes</button>
+    <button class="no" onmouseover="moveNoButton(this)">Tidak</button>
   </div>
+  <div class="footer">Dari: TOM | Si Bebek Bahagia 🐤</div>
+</div>
 
-  <div id="page2" class="page">
-    <div class="question">1. Hummm, mau ngomong apa tadi yaa</div>
-    <button class="choice" onclick="showPage('page2q2')">Aneh ke tom</button>
-    <button class="choice" onclick="showPage('page2q2')">Ngomong apa emang tom</button>
-  </div>
+<div id="page4" class="page">
+  <div class="doll-animation"></div>
+  <h1>💖 Yeay! Odii bilang IYA! 💖</h1>
+  <p style="max-width: 500px;">
+    Makasii di yaa udah bilang iya! 🥹❤️<br><br>
+    Mulai dari sekarang, odi bakal punya satu orang yang bakal selalu ada buat odi.
+    Kita mulai kisah kita dari sini ya... Let’s make every moment beautiful and full of love. 💑✨
+  </p>
+  <div class="footer">Dari: TOM | Si Bebek Bahagia 🐤</div>
+</div>
 
-  <div id="page2q2" class="page">
-    <div class="question">2. Aduhh, lupa lagii</div>
-    <button class="choice" onclick="showPage('page2q3')">Tommm!!😠😠</button>
-    <button class="choice" onclick="showPage('page2q3')">Ngomong apa emang tomm "Dengan nada sabar"😊😊</button>
-  </div>
+<script>
+  function showPage(id) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => {
+      page.style.opacity = 0;
+      page.style.pointerEvents = 'none';
+      page.style.zIndex = 0;
+    });
+    const activePage = document.getElementById(id);
+    activePage.style.opacity = 1;
+    activePage.style.pointerEvents = 'auto';
+    activePage.style.zIndex = 5;
 
-  <div id="page2q3" class="page">
-    <div class="question">3. Oiyaaa baru ingat aku diii</div>
-    <button class="choice" onclick="showPage('page2q4')">Iyaa ngomong terus tom</button>
-    <button class="choice" onclick="showPage('page2q4')">ya tom ngomong aju</button>
-  </div>
-
-  <div id="page2q4" class="page">
-    <div class="question">4. Gimana yaa ngomonginnya...</div>
-    <button class="choice" onclick="showPage('page3')">Langsung aja Tom, Odi siap kok</button>
-    <button class="choice" onclick="showPage('page3')">Jangan bikin penasaran Tom 😳</button>
-  </div>
-
-  <div id="page3" class="page">
-    <div class="doll-animation"></div>
-    <img src="odii.jpg" alt="Foto Kamu" class="photo">
-    <div class="love"></div>
-    <h1>Hii Odii</h1>
-    <p>
-      "Dari awal pertama kita ketemu, sebenernya Tom udah suka sama Odi...Tapi belum sesuka sekarang sih. Sekarang, setelah kita makin sering ngobrol, tukeran cerita, telponan lama-lama, Tom ngerasa kita tuh nyambung banget. Dari hal-hal kecil yang kita bahas, sampai cara kita saling ngerti, rasanya kayak... cocok aja gitu. Natural. Dan jujur, dari situ Tom mulai mikir, kayaknya Odi emang orang yang selama ini Tom cari. Yang bisa bikin Tom senyum-senyum sendiri, bikin hari-hari jadi lebih ringan, lebih seru... dan lebih bahagia 😊.
-    </p>
-    <p>
-      "Tom juga suka banget sama pribadi Odi yang kuat dan mandiri. Itu bikin Tom makin kagum setiap harinya. Ada rasa tenang dan nyaman tiap deket sama Odi. Semua jadi terasa lebih ringan. Makanya Tom selalu nunggu-nunggu momen kita ngobrol, saling cerita ataupun sekadar nongki bareng".
-    </p>
-    <p>
-      Honestly, I never thought I’d meet someone who could make me feel this way. But with you, everything just feels... right.
-    </p>
-    <p>
-      Sekarang tom mau terus berada di sisi odi, menjaga odi, dan buat odi bahagia. Kalau odi bersedia... would you let me be the one to love and care for you?
-    </p>
-    <p style="font-weight: bold; font-size: 1.4em; margin-top: 20px;">I love you so 💖</p>
-    <div class="buttons">
-      <button class="yes" onclick="showPage('page4')">Yes</button>
-      <button class="no" onmouseover="moveNoButton(this)">Tidak</button>
-    </div>
-    <div class="footer">Dari: TOM | Si Bebek Bahagia 🐤</div>
-  </div>
-
-  <div id="page4" class="page">
-    <div class="doll-animation"></div>
-    <h1>💖 Yeay! Odii bilang IYA! 💖</h1>
-    <p style="max-width: 500px;">
-      Makasii di yaa udah bilang iya! 🥹❤️<br><br>
-      Mulai dari sekarang, odi bakal punya satu orang yang bakal selalu ada buat odi.
-      Kita mulai kisah kita dari sini ya... Let’s make every moment beautiful and full of love. 💑✨
-    </p>
-    <div class="footer">Dari: TOM | Si Bebek Bahagia 🐤</div>
-  </div>
-
-  <script>
-    function showPage(id) {
-      const pages = document.querySelectorAll('.page');
-      pages.forEach(page => {
-        if (page.id === id) {
-          page.style.opacity = 1;
-          page.style.pointerEvents = 'auto';
-          page.style.zIndex = 5;
-        } else {
-          page.style.opacity = 0;
-          page.style.pointerEvents = 'none';
-          page.style.zIndex = 0;
-        }
-      });
-
-      const audio = document.getElementById('bg-music');
-      if (audio && audio.muted) {
-        audio.muted = false;
-        audio.play().catch(e => {
-          console.log('Autoplay diblokir:', e);
-        });
-      }
+    const audio = document.getElementById('bg-music');
+    if (audio && audio.muted) {
+      audio.muted = false;
+      audio.play().catch(e => console.log('Autoplay diblokir:', e));
     }
 
-    function moveNoButton(btn) {
-      const x = Math.random() * (window.innerWidth - 100);
-      const y = Math.random() * (window.innerHeight - 100);
-      btn.style.position = 'absolute';
-      btn.style.left = `${x}px`;
-      btn.style.top = `${y}px`;
-    }
+    if (id === 'page3') startTypingEffect();
+  }
 
-    function createDoll() {
+  function moveNoButton(btn) {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 100);
+    btn.style.position = 'absolute';
+    btn.style.left = `${x}px`;
+    btn.style.top = `${y}px`;
+  }
+
+  function createDoll() {
+    document.querySelectorAll('.doll-animation').forEach(container => {
       const doll = document.createElement('div');
       doll.classList.add('doll');
       doll.style.left = Math.random() * 100 + 'vw';
-      document.querySelectorAll('.doll-animation').forEach(container => {
-        container.appendChild(doll.cloneNode(true));
-      });
-      setTimeout(() => { doll.remove(); }, 7000);
-    }
-    setInterval(createDoll, 600);
-  </script>
+      container.appendChild(doll);
+      setTimeout(() => {
+        doll.remove();
+      }, 7000);
+    });
+  }
+  setInterval(createDoll, 600);
+
+  function typeText(text, elementId, delay = 50) {
+    const element = document.getElementById(elementId);
+    let index = 0;
+    element.textContent = '';
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        element.textContent += text.charAt(index);
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, delay);
+  }
+
+  function startTypingEffect() {
+    const texts = [
+      `Hii Odii`,
+      `"Dari awal pertama kita ketemu, sebenernya Tom udah suka sama Odi... Tapi belum sesuka sekarang sih..."`,
+      `"Sekarang, setelah kita makin sering ngobrol, tukeran cerita, telponan lama-lama, Tom ngerasa kita tuh nyambung banget."`,
+      `"Dari hal-hal kecil yang kita bahas, sampai cara kita saling ngerti, rasanya kayak... cocok aja gitu. Natural. Dan jujur, dari situ Tom mulai mikir, kayaknya Odi emang orang yang selama ini Tom cari. Yang bisa bikin Tom senyum-senyum sendiri, bikin hari-hari jadi lebih ringan, lebih seru... dan lebih bahagia 😊."`,
+      `"Tom juga suka banget sama pribadi Odi yang kuat dan mandiri. Itu bikin Tom makin kagum setiap harinya. Ada rasa tenang dan nyaman tiap deket sama Odi. Semua jadi terasa lebih ringan. Makanya Tom selalu nunggu-nunggu momen kita ngobrol, saling cerita ataupun sekadar nongki bareng."`,
+      `"Honestly, I never thought I’d meet someone who could make me feel this way. But with you, everything just feels... right."`,
+      `"Sekarang tom mau terus berada di sisi odi, menjaga odi, dan buat odi bahagia. Kalau odi bersedia... would you let me be the one to love and care for you?"`,
+    ];
+    const ids = ['text1', 'text2', 'text3', 'text4','text5','text6','text7'];
+
+    let delay = 0;
+    texts.forEach((t, i) => {
+      setTimeout(() => typeText(t, ids[i]), delay);
+      delay += t.length * 50 + 500;
+    });
+
+    setTimeout(() => {
+      document.getElementById("yesno-buttons").style.display = "block";
+      document.getElementById("final-text").style.display = "block";
+    }, delay);
+  }
+</script>
 </body>
 </html>
